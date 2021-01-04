@@ -340,4 +340,3 @@ def _yank_path(view: View, defx: Defx, context: Context) -> None:
     if (view._vim.call('has', 'clipboard') or
             view._vim.call('has', 'xterm_clipboard')):
         view._vim.call('setreg', '+', yank)
-    # view.print_msg('Yanked:' + yank)
