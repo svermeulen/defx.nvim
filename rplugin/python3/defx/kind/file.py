@@ -145,10 +145,6 @@ class Kind(Base):
         if not context.targets:
             return
 
-        if not importlib.util.find_spec('send2trash'):
-            error(view._vim, '"Send2Trash" is not installed')
-            return
-
         force = context.args[0] == 'force' if context.args else False
         if not force:
             message = 'Are you sure you want to delete {}?'.format(
@@ -158,10 +154,10 @@ class Kind(Base):
             if not confirm(view._vim, message):
                 return
 
-        import send2trash
         for target in context.targets:
             target_path = str(target['action__path'])
-            send2trash.send2trash(target_path)
+            
+            view._vim.command('!trash {}'.format(target_path))
 
             if view._vim.call('bufexists', target_path):
                 view._vim.call('defx#util#buffer_delete',
