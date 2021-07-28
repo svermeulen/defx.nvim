@@ -157,7 +157,7 @@ class Kind(Base):
         for target in context.targets:
             target_path = str(target['action__path'])
             
-            view._vim.command('!trash {}'.format(target_path))
+            view._vim.command('silent !trash {}'.format(target_path))
 
             if view._vim.call('bufexists', target_path):
                 view._vim.call('defx#util#buffer_delete',
